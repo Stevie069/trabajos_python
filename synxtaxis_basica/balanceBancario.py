@@ -1,26 +1,26 @@
 class CuentaBancaria:
-    def __init__(self, balance_inicial=1000):
-        self.balance = balance_inicial
+    def __init__(self, balance=1000):
+        self.balance = balance
 
-    def depositar(self, monto):
-        if monto > 0:
-            self.balance += monto
-            print(f"\nDepósito realizado. Tu saldo actual es de: ${self.balance}")
+    def depositar(self, deposito):
+        if deposito > 0:
+            self.balance += deposito
+            print(f"\nDepósito realizado con éxito, su saldo ahorita es de: ${self.balance}")
         else:
-            print("\nEl monto a depositar debe ser mayor a 0.")
+            print("\nEl depósito debe ser mayor a 0.")
 
-    def retirar(self, monto):
-        if monto <= 0:
-            print("\nEl monto a retirar debe ser mayor a 0 loco.")
-        elif monto > self.balance:
-            print("\nDinero insuficiente. No se realizo la operación.")
+    def retirar(self, retiro):
+        if retiro > 0:
+            if retiro <= self.balance:
+                self.balance -= retiro
+                print(f"\nRetiro exitoso. Su saldo actual es: ${self.balance}")
+            else:
+                print("\nNo tienes plata pobre")
         else:
-            self.balance -= monto
-            print(f"\nRetiro exitoso. Tu saldo actual es de: ${self.balance}")
+            print("\nEl retiro debe ser mayor a 0.")
 
     def ver_saldo(self):
         print(f"\nSu saldo actual es: ${self.balance}")
-
 
 class MenuBancario:
     def __init__(self):
@@ -28,37 +28,39 @@ class MenuBancario:
 
     def mostrar_menu(self):
         while True:
-            print("\n=== Menú Bancario ===")
-            print("Depositar        = 1")
-            print("Retirar          = 1")
-            print("Ver saldo        = 1")
-            print("Salir            = 1")
-
+            print()
+            print("=== Menú Bancario By Steve ===")
+            print()
+            print("Depositar    = 1")
+            print("Retirar      = 2")
+            print("Ver saldo    = 3")
+            print("Salir        = 4")
+            print()
             opcion = input("Seleccione una opción: ")
 
             if opcion == "1":
-                try:
-                    monto = float(input("Ingrese dinero a depositar: "))
-                    self.cuenta.depositar(monto)
-                except ValueError:
+                deposito = input("Ingrese dinero a depositar: ")
+                if deposito.replace(".", "", 1).isdigit():
+                    self.cuenta.depositar(float(deposito))
+                else:
                     print("Entrada inválida. Debe ingresar un número.")
 
             elif opcion == "2":
-                try:
-                    monto = float(input("Ingrese el monto a retirar: "))
-                    self.cuenta.retirar(monto)
-                except ValueError:
+                retiro = input("Ingrese el monto a retirar: ")
+                if retiro.replace(".", "", 1).isdigit():
+                    self.cuenta.retirar(float(retiro))
+                else:
                     print("Entrada inválida. Debe ingresar un número.")
 
             elif opcion == "3":
                 self.cuenta.ver_saldo()
 
             elif opcion == "4":
-                print("Gracias por usar el sistema bancario. ¡Adiós!")
+                print("\nGracias por usar el sistema bancario de Steve. ¡Bye!")
                 break
 
             else:
-                print("Opción no válida, intente de nuevo.")
+                print("\nOpción no válida, intente de nuevo.")
 
 
 if __name__ == "__main__":
